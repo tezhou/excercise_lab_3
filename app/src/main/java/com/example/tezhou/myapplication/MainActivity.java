@@ -13,61 +13,41 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    Button button;
+    EditText f1;
+    EditText f2;
+    TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        button = (Button) findViewById(R.id.button);
+        f1  = (EditText) findViewById(R.id.editText);
+        f2  = (EditText) findViewById(R.id.editText2);
+        text  = (TextView) findViewById(R.id.textView);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        final Button button = (Button) findViewById(R.id.button);
-        final EditText f1  = (EditText) findViewById(R.id.editText);
-        final EditText f2  = (EditText) findViewById(R.id.editText2);
+        button.setOnClickListener(this);
+        f1.setOnClickListener(this);
+        f2.setOnClickListener(this);
+        text.setOnClickListener(this);
 
-         int sum = 0;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final int t1 =Integer.parseInt(f1.getText().toString());
-                final int t2 =Integer.parseInt(f2.getText().toString());
-                int sum = sum(t1, t2);
-            }
-        });
-        final TextView text  = (TextView) findViewById(R.id.textView);
-        text.setText(sum);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        @Override
+        public void onClick(View view) {
+                int sum = 0;
+                int t1 =Integer.parseInt(f1.getText().toString());
+                int t2 =Integer.parseInt(f2.getText().toString());
+                sum = sum(t1, t2);
+                if(view.getId() == R.id.button) {
+                    text.setText(String.valueOf(sum));
+                }
         }
 
-        return super.onOptionsItemSelected(item);
-    }
 
     public int sum(int a, int b){
         return a+b;
